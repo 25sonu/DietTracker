@@ -3,7 +3,23 @@
         "name": "John Doe",
         "age": 30,
         "contact_number": "123-456-7890"
+    },
+
+    {
+            "name": "Jane Smith",
+            "age": 25,
+            "contact_number":"123-456-8763"
+    },
+    {
+        "name": "Grace Lee",
+        "age": 27,
+        "contact_number":"123-456-9090"
+    },
+
+
+    {
+        "name": "Henry King",
+        "age": 60,
+        "contact_number":"123-456-8888"
     }
-]   
-    
-       
+] 

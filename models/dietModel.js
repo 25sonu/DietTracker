@@ -11,11 +11,8 @@ const dietSchema = new mongoose.Schema({
         required: true
         // unique: true // Uncomment if you want to enforce uniqueness on age
     },
-    admit_Date: {
-        type: Date,
-        required: true
-    }
+   
 });
 
-const Diet = mongoose.model('Diet', dietSchema);
-module.exports = Diet; // Corrected here
+const DietModel = mongoose.model('Diet', dietSchema);
+module.exports = DietModel; // Corrected here
