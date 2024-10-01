@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const dietController = require('../controllers/dietController'); // Ensure this path is correct
+const dietController = require('../controllers/dietController.js'); // Ensure this path is correct
 
 // Define the routes
-router.post('/diet', dietController.createDiet);
+router.post('/diets', dietController.createDiet);
+router.get('/diets', dietController.getAllDiets);
+
+module.exports = router;

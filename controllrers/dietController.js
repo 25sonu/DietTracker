@@ -3,7 +3,9 @@ const DietModel = require('../models/dietModel');
 exports.createDiet= async (req, res) => {
     try {
         let singleDiet= new DietModel({
-            name: req.body.name, age: req.body.age, contact_number: req.body.contact_number
+            name: req.body.name,
+            age: req.body.age,
+            contact_number: req.body.contact_number
         });
         singleDiet = await singleDiet.save();
         res.send(singleDiet);
@@ -20,3 +22,4 @@ exports.getAllDiets = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
+
