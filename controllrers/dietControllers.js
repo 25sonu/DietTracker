@@ -1,8 +1,10 @@
-const DietModel = require('../models/bookModel');
+const DietModel = require('../models/dietModel');
 
 exports.createDiet= async (req, res) => {
     try {
-        let singleDiet= new DietModel({ title: req.body.title, author: req.body.author });
+        let singleDiet= new DietModel({
+            name: req.body.name, age: req.body.age, contact_number: req.body.contact_number
+        });
         singleDiet = await singleDiet.save();
         res.send(singleDiet);
     } catch (err) {
