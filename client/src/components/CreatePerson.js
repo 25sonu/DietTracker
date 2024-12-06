@@ -115,10 +115,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='Instructions of Diet'
-                      name='title'
+                      placeholder='Name of the Person'
+                      name='name'
                       className='form-control'
-                      value={person.title}
+                      value={person.name}
                       onChange={onChange}
                     />
                   </div>
@@ -127,10 +127,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='ISBN'
-                      name='isbn'
+                      placeholder='BMI'
+                      name='BMI'
                       className='form-control'
-                      value={book.isbn}
+                      value={person.BMI}
                       onChange={onChange}
                     />
                   </div>
@@ -139,10 +139,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='Author'
-                      name='author'
+                      placeholder='weight'
+                      name='weight'
                       className='form-control'
-                      value={book.author}
+                      value={person.weight}
                       onChange={onChange}
                     />
                   </div>
