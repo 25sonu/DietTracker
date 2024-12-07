@@ -7,11 +7,12 @@ import { CssBaseline, Box } from '@mui/material';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-// import CreateBook from './components/CreateBook';
-// import ShowBookList from './components/ShowBookList';
-// import ShowBookDetails from './components/ShowBookDetails';
-// import UpdateBookInfo from './components/UpdateBookInfo';
+ import CreatePerson from './components/CreatePerson';
+// import ShowPersonList from './components/ShowPersonList';
+// import ShowPersonDetails from './components/ShowPersonDetails';
+// import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
+
 // import NotesPage from './components/NotesPage'; // Import NotesPage component
 
 const App = () => {
@@ -24,11 +25,11 @@ const App = () => {
           <Box component="main" flexGrow={1} py={3}>
             <Routes>
               <Route exact path='/' element={<HomePage />} />
-              {/* <Route path='/book-list' element={<ShowBookList />} />
-              <Route path='/create-book' element={<CreateBook />} />
-              <Route path='/edit-book/:id' element={<UpdateBookInfo />} />
-              <Route path='/show-book/:id' element={<ShowBookDetails />} />
-              <Route path='/notes/*' element={<NotesPage />} /> */}
+             {/* <Route path='/person-list' element={<ShowPersonList />} /> */}
+              <Route path='/create-person' element={<CreatePerson />} />
+              {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
+              <Route path='/show-person/:id' element={<ShowPersonDetails />} />
+              <Route path='/notes/*' element={<NotesPage />} />  */}
             </Routes>
           </Box>
           <Footer />

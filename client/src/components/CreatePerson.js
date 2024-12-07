@@ -151,22 +151,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='Describe this book'
-                      name='description'
+                      placeholder='age of the person'
+                      name='age'
                       className='form-control'
-                      value={book.description}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-    
-                  <div className='form-group'>
-                    <input
-                      type='date'
-                      placeholder='published_date'
-                      name='published_date'
-                      className='form-control'
-                      value={book.published_date}
+                      value={person.age}
                       onChange={onChange}
                     />
                   </div>
@@ -175,14 +163,16 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='Publisher of this Book'
-                      name='publisher'
+                      placeholder='contact_number'
+                      name='contact_number'
                       className='form-control'
-                      value={book.publisher}
+                      value={person.contact_number}
                       onChange={onChange}
                     />
                   </div>
                   <br />
+    
+                 
     
                   <input
                     type='submit'
@@ -198,7 +188,7 @@ const CreatePerson = (props) => {
       );
     };
     
-    export default CreateBook;
+    export default CreatePerson;
     
 
     
