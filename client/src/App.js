@@ -25,8 +25,8 @@ const App = () => {
           <Box component="main" flexGrow={1} py={3}>
             <Routes>
               <Route exact path='/' element={<HomePage />} />
-             {/* <Route path='/person-list' element={<ShowPersonList />} /> */}
-              <Route path='/create-person' element={<CreatePerson />} />
+              
+              <Route path='/person-list' element={<CreatePerson />} />
               {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
               <Route path='/notes/*' element={<NotesPage />} />  */}
