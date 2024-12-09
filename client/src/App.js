@@ -2,13 +2,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box } from '@mui/material';
+import {  Box } from '@mui/material';
 //import rosePineTheme from './theme/rosepine';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
  import CreatePerson from './components/CreatePerson';
-// import ShowPersonList from './components/ShowPersonList';
+ import ShowPersonList from './components/ShowPersonList';
 // import ShowPersonDetails from './components/ShowPersonDetails';
 // import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
@@ -27,6 +27,7 @@ const App = () => {
               <Route exact path='/' element={<HomePage />} />
               
               <Route path='/person-list' element={<CreatePerson />} />
+              <Route path='/person-list' element={<ShowPersonList />} />
               {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
               <Route path='/notes/*' element={<NotesPage />} />  */}

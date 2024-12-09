@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 import axios from 'axios';
 
 const CreatePerson = (props) => {
@@ -127,10 +129,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='BMI'
-                      name='BMI'
+                      placeholder='age of the person'
+                      name='age'
                       className='form-control'
-                      value={person.BMI}
+                      value={person.age}
                       onChange={onChange}
                     />
                   </div>
@@ -151,10 +153,10 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='text'
-                      placeholder='age of the person'
-                      name='age'
+                      placeholder='BMI'
+                      name='BMI'
                       className='form-control'
-                      value={person.age}
+                      value={person.BMI}
                       onChange={onChange}
                     />
                   </div>

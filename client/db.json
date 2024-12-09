@@ -1,0 +1,43 @@
+{
+    "persons": [
+    {
+        "name": "John Doe",
+        "age": 30,
+        "contact_number": "123-456-7890",
+        "admit_Date": "2023-09-01T10:00:00Z",
+        "weight":"33",
+        "BMI": "15.5",
+        "availability": "true"
+    },
+
+    {
+            "name": "Jane Smith",
+            "age": 25,
+            "contact_number":"123-456-8763",
+            "admit_Date":"2023-10-01T10:00:00E",
+            "weight":"44",
+            "BMI":"20.5",
+            "availability":"true"
+    },
+    {
+        "name": "Grace Lee",
+        "age": 27,
+        "contact_number":"123-456-9090",
+        "admit_Date":"2023-11-01T10:00:00S",
+        "weight":"55",
+        "BMI":"18.5",
+        "availability":"false"
+    },
+
+
+    {
+        "name": "Henry King",
+        "age": 60,
+        "contact_number":"123-456-8888",
+        "admit_Date":"2023-10-01T10:00:00D",
+        "weight":"66",
+        "BMI":"21.5",
+        "availability":"false"
+    }
+]
+}
