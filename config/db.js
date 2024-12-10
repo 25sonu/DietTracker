@@ -2,11 +2,15 @@ const mongoose = require ('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/mydatabase');
+        mongoose.set("strictQuery", true)
+        await mongoose.connect({  path: "./config.env" });
         console.log('Connected to MongoDB');
-    } catch (err) {
-        console.error('Failed to connect to MongoDB', err);
-        process.exit(1);
+    }
+
+     catch (err) {
+        console.error(err.message)
+        console.log("FIX THE DB CONNECTIVITY CODE OR MONGODB URL/USERNAME/PASSWORD!!")
+       // process.exit(1);
     }
 };
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container} from '@mui/material';
 
 
 
@@ -85,6 +86,7 @@ const CreatePerson = (props) => {
       };
 
       return (
+        <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
         <div className='CreatePerson'>
           {/* <Navbar /> */}
           <ToastContainer
@@ -187,6 +189,7 @@ const CreatePerson = (props) => {
     
     
         </div>
+        </Container>
       );
     };
     
