@@ -18,7 +18,7 @@ import Footer from './components/Footer';
 const App = () => {
   return (
      <ThemeProvider theme={dietTrackerTheme}>
-       <CssBaseline />
+       {/* <CssBaseline /> */}
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Navbar />

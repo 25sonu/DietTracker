@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function UpdateBookInfo(props) {
+function UpdatePersonInfo(props) {
   const [person, setPerson] = useState({
     name: '',
     age:'',
