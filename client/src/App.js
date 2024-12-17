@@ -1,24 +1,24 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-//import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import {  Box } from '@mui/material';
-//import rosePineTheme from './theme/rosepine';
+import dietTrackerTheme from './theme/dietTracker';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
  import CreatePerson from './components/CreatePerson';
  import ShowPersonList from './components/ShowPersonList';
  import ShowPersonDetails from './components/ShowPersonDetails';
-// import UpdatePersonInfo from './components/UpdatePersonInfo';
+ import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
 
 // import NotesPage from './components/NotesPage'; // Import NotesPage component
 
 const App = () => {
   return (
-     //<ThemeProvider theme={rosePineTheme}>
-       //<CssBaseline />
+     <ThemeProvider theme={dietTrackerTheme}>
+       <CssBaseline />
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Navbar />
@@ -28,7 +28,7 @@ const App = () => {
               
               <Route path='/person-list' element={<CreatePerson />} />
               <Route path='/person-list' element={<ShowPersonList />} />
-             {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> */}
+              <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> 
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
               {/* <Route path='/notes/*' element={<NotesPage />} />   */}
             </Routes>
@@ -36,7 +36,7 @@ const App = () => {
           <Footer />
         </Box>
       </Router>
-       //</ThemeProvider>
+       </ThemeProvider>
   );
 };
 
