@@ -26,7 +26,7 @@ const App = () => {
             <Routes>
               <Route exact path='/' element={<HomePage />} />
               
-              <Route path='/person-list' element={<CreatePerson />} />
+              <Route path='/person-create' element={<CreatePerson />} />
               <Route path='/person-list' element={<ShowPersonList />} />
               <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> 
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />

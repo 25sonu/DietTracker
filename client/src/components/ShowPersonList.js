@@ -31,7 +31,7 @@ function ShowPersonList() {
 
       <Button
         component={Link}
-        to="/create-person"
+        to="/person-create"
         color="primary"
         variant="contained"
         sx={{ mb: 4 }}

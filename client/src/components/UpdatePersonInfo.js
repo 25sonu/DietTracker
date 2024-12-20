@@ -18,7 +18,7 @@ function UpdatePersonInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/persons/${id}`)
+      .get(`https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets/${id}`)
       .then((res) => {
         setPerson({
           name: res.data.name,
