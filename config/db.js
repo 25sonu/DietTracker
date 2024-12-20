@@ -22,7 +22,9 @@ const mongoose = require ('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/mydatabase');
+        await mongoose.connect(
+            'mongodb+srv://diet_tracker_admin:diet_tracker_admin@diet-tracker.xvfvs.mongodb.net/?retryWrites=true&w=majority&appName=diet-tracker'
+           );
         console.log('Connected to MongoDB');
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);

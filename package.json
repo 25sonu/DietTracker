@@ -16,6 +16,7 @@
     "mquery": "^5.0.0",
     "nodemon": "^3.1.7",
     "punycode": "^2.3.1",
+    "react-scripts": "^5.0.1",
     "sift": "^17.1.3",
     "sparse-bitfield": "^3.0.3",
     "tr46": "^4.1.1",
@@ -25,7 +26,8 @@
   "scripts": {
     "server": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "prod": "cd client && npm run build && cd .. && npm run server"
   },
   "author": "",
   "license": "ISC",

@@ -55,7 +55,7 @@ function UpdatePersonInfo(props) {
     };
 
     axios
-      .put(`/api/persons/${id}`, data)
+      .put(`https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets/${id}`, data)
       .then((res) => {
         navigate(`/show-person/${id}`);
       })

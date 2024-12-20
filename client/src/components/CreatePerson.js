@@ -31,7 +31,7 @@ const CreatePerson = (props) => {
         e.preventDefault();
         
     axios
-    .post('/api/persons', person)
+    .post('https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets', person)
     .then((res) => {
       setPerson({
         name: '',
