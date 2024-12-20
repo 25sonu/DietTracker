@@ -30,6 +30,6 @@ app.get("*", function (_, res) {
 });
 
 
-const PORT = process.env.PORT || 5000;
-console.log(`Server running at http://localhost:${PORT}`);
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Express server running on port ${port}`));
 

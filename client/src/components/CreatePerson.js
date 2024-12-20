@@ -31,16 +31,16 @@ const CreatePerson = (props) => {
         e.preventDefault();
         
     axios
-    .post('https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets', person)
+    .post('https://5000-25sonu-diettracker-e8t5a8vigez.ws-us117.gitpod.io/api/diets', person)
     .then((res) => {
       setPerson({
         name: '',
         age:'',
         contact_number:'', 
-        admit_Date: '',
+        // admit_Date: '',
         weight:'',
         BMI:'',
-        availability:'',
+        // availability:'',
     
         
       });
@@ -67,9 +67,9 @@ const CreatePerson = (props) => {
         })
 
         .catch((err) => {
-            console.log('Error in CreatePerson!');
-            console.log('The error is -> ')
-            console.log(err)
+            console.log('Error in CreatePerson!',err);
+          
+           
             // Show the success alert
             toast.error('Something went wrong, try again!', {
               position: "top-right",
@@ -116,6 +116,7 @@ const CreatePerson = (props) => {
                 <p className='lead text-center'>Create new person</p>
     
                 <form noValidate onSubmit={onSubmit}>
+                  {/* <Name /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -127,7 +128,7 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <Age /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -139,7 +140,7 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <Weight /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -151,19 +152,19 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <BMI /> */}
                   <div className='form-group'>
                     <input
                       type='text'
                       placeholder='BMI'
                       name='BMI'
                       className='form-control'
-                      value={person.BMI}
+                      value={person.bmi}
                       onChange={onChange}
                     />
                   </div>
                   <br />
-    
+                  {/* <Contact Number /> */}
                   <div className='form-group'>
                     <input
                       type='text'

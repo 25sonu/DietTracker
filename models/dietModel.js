@@ -10,25 +10,28 @@ const dietSchema = new mongoose.Schema({
     age: {
         type: Number,
         required: true
-        // unique: true // Uncomment if you want to enforce uniqueness on age
     },
-   contact_number:{
-    type:Number,
-    required: true
-   },
-   admit_Date:{
-    type: Date,
-    required:true
-   },
-   BMI:{
-    type:Number,
-    required:true
-   },
-   availability:{
-    type:Boolean,
-    required:true
-   }
- 
+    weight: {
+        type: Number,
+        required: true
+    },
+    bmi: {
+        type: Number,
+        required: true
+    },
+    contact_number: {
+        type: Number,
+        required: true
+    },
+    //    admit_Date:{
+        //     type: Date,
+        //     required:true
+        //    },
+    //    availability:{
+    //     type:Boolean,
+    //     required:true
+    //    }
+
 });
 
 const DietModel = mongoose.model('Diet', dietSchema);
