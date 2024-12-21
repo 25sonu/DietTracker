@@ -15,13 +15,14 @@ const CreatePerson = (props) => {
         name: '',
         age:'',
         contact_number:'', 
-        admit_Date: '',
+        //admit_Date: '',
         weight:'',
         BMI:'',
-        availability:'',
+        //availability:'',
+      
       
     });
-    const [showToast, setShowToast] = useState(false);
+    const [ setShowToast] = useState(false);
 
     const onChange = (e) => {
         setPerson({ ...person, [e.target.name]: e.target.value });
@@ -31,16 +32,18 @@ const CreatePerson = (props) => {
         e.preventDefault();
         
     axios
-    .post('https://5000-25sonu-diettracker-e8t5a8vigez.ws-us117.gitpod.io/api/diets', person)
+    .post('https://5000-25sonu-diettracker-w7eld87sihs.ws-us117.gitpod.io/api/diets', person)
     .then((res) => {
       setPerson({
         name: '',
         age:'',
         contact_number:'', 
-        // admit_Date: '',
+    
+         // admit_Date: '',
         weight:'',
         BMI:'',
         // availability:'',
+        
     
         
       });
@@ -67,8 +70,9 @@ const CreatePerson = (props) => {
         })
 
         .catch((err) => {
-            console.log('Error in CreatePerson!',err);
-          
+          console.log('Error in CreatePerson!');
+          console.log('The error is -> ')
+          console.log(err)
            
             // Show the success alert
             toast.error('Something went wrong, try again!', {
@@ -119,7 +123,7 @@ const CreatePerson = (props) => {
                   {/* <Name /> */}
                   <div className='form-group'>
                     <input
-                      type='text'
+                      type='String'
                       placeholder='Name of the Person'
                       name='name'
                       className='form-control'
@@ -131,7 +135,7 @@ const CreatePerson = (props) => {
                   {/* <Age /> */}
                   <div className='form-group'>
                     <input
-                      type='text'
+                      type='Number'
                       placeholder='age of the person'
                       name='age'
                       className='form-control'
@@ -143,7 +147,7 @@ const CreatePerson = (props) => {
                   {/* <Weight /> */}
                   <div className='form-group'>
                     <input
-                      type='text'
+                      type='Number'
                       placeholder='weight'
                       name='weight'
                       className='form-control'
@@ -155,7 +159,7 @@ const CreatePerson = (props) => {
                   {/* <BMI /> */}
                   <div className='form-group'>
                     <input
-                      type='text'
+                      type='Number'
                       placeholder='BMI'
                       name='BMI'
                       className='form-control'
@@ -167,7 +171,7 @@ const CreatePerson = (props) => {
                   {/* <Contact Number /> */}
                   <div className='form-group'>
                     <input
-                      type='text'
+                      type='Number'
                       placeholder='contact_number'
                       name='contact_number'
                       className='form-control'
