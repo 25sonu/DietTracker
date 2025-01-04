@@ -44,3 +44,9 @@ const SearchPersons = () => {
             setContact_number(uniqueContact_number);
             setLoading(false);
     })
+    .catch((err) => {
+        console.error('Error fetching tracks:', err);
+        setLoading(false);
+      });
+  }, []);
+}
