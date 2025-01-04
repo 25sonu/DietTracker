@@ -85,18 +85,18 @@ const dietTrackerTheme = createTheme({
         },
       },
     },
-    MuiCssBaseline: {
-      styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
-      `,
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: dietTrackerColors.text, // Apply text color to all Typography elements
-        },
-      },
-    },
+    // MuiCssBaseline: {
+    //   styleOverrides: `
+    //     @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
+    //   `,
+    // },
+    // MuiTypography: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: dietTrackerColors.text, // Apply text color to all Typography elements
+    //     },
+    //   },
+    // },
     // Optionally add more customizations for other components like forms, sliders, etc.
   },
 });

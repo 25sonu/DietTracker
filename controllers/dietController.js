@@ -16,13 +16,14 @@ exports.createDiet= async (req, res) => {
     }
 };
 
-exports.getAllDiets = async (req, res) => {
+exports.getAllDiet= async (req, res) => {
     try {
         const allDiets = await DietModel.find();
         res.send(allDiets);
     } catch (err) {
         res.status(400).send(err.message);
     }
+    console.log(dietController);
 };
 
 exports.getDietById = async (req, res) => {
