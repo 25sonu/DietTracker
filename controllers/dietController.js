@@ -23,7 +23,7 @@ exports.getAllDiet= async (req, res) => {
     } catch (err) {
         res.status(400).send(err.message);
     }
-    console.log(dietController);
+    //console.log(dietController);
 };
 
 exports.getDietById = async (req, res) => {

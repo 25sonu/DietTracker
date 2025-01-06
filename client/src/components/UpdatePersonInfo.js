@@ -18,7 +18,7 @@ function UpdatePersonInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets/${id}`)
+      .get(`https://diettracker-1zc0.onrender.com${id}`)
       .then((res) => {
         setPerson({
           name: res.data.name,
@@ -55,7 +55,7 @@ function UpdatePersonInfo(props) {
     };
 
     axios
-      .put(`https://5000-25sonu-diettracker-7d45axv0io3.ws-us117.gitpod.io/api/diets/${id}`, data)
+      .put(`https://diettracker-1zc0.onrender.com${id}`, data)
       .then((res) => {
         navigate(`/show-person/${id}`);
       })

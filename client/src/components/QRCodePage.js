@@ -14,23 +14,23 @@ import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
 
 const QRCodePage = () => {
-  const [track, setTrack] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [loading, setLoading] = useState(true);
   const baseUrl = process.env.REACT_APP_TRACK_BASE_URL || 'https://health-tkr.onrender.com/show-track';
 
   useEffect(() => {
     axios.get('https://health-tkr.onrender.com/api/tracks')
       .then((res) => {
-        setTrack(res.data);
+        setPersons(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching tracks:', err);
+        console.error('Error fetching persons:', err);
         setLoading(false);
       });
   }, []);
 
-  const downloadQR = (trackId, trackName) => {
+  const downloadQR = (personId, trackName) => {
     const canvas = document.createElement('canvas');
     const svg = document.getElementById(`qr-${trackId}`);
     const serializer = new XMLSerializer();

@@ -16,7 +16,7 @@ const ExportPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://5000-25sonu-diettracker-t9bp4y6b1y4.ws-us117.gitpod.io/api/diets')
+    axios.get('https://diettracker-1zc0.onrender.com')
       .then(res => {
         setPersons(res.data);
         setLoading(false);
