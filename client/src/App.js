@@ -8,8 +8,10 @@ import dietTrackerTheme from './theme/dietTracker';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
  import CreatePerson from './components/CreatePerson';
+ import ShowTrackList from './components/ShowTrackList';
  import ShowPersonList from './components/ShowPersonList';
  import ShowPersonDetails from './components/ShowPersonDetails';
+ import ExportPage from './components/ExportPage';
  import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
 
@@ -30,6 +32,7 @@ const App = () => {
               <Route path='/person-list' element={<ShowPersonList />} />
               <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> 
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
+              <Route path="/export" element={<ExportPage />} />
               {/* <Route path='/notes/*' element={<NotesPage />} />   */}
             </Routes>
           </Box>

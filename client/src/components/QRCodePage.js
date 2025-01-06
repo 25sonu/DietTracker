@@ -46,7 +46,7 @@ const QRCodePage = () => {
       ctx.drawImage(img, 0, 0);
 
       const a = document.createElement('a');
-      a.download = `HealthTracker_QR_${trackName.replace(/\s+/g, '_')}.png`;
+      a.download = `DietTracker_QR_${trackName.replace(/\s+/g, '_')}.png`;
       a.href = canvas.toDataURL('image/png');
       a.click();
     };
@@ -66,12 +66,12 @@ const QRCodePage = () => {
         Welcome to the Library
       </Typography>
       <Typography variant="body1" gutterBottom align="center" sx={{ mb: 4 }}>
-        Scan a QR code to learn more about a track.
+        Scan a QR code to learn more about a person.
       </Typography>
   
       <Grid container spacing={3}>
-        {track.map((track) => (
-          <Grid item xs={12} sm={6} md={4} key={track._id}>
+        {person.map((person) => (
+          <Grid item xs={12} sm={6} md={4} key={person._id}>
             <Card
               sx={{
                 height: '100%',
@@ -113,7 +113,7 @@ const QRCodePage = () => {
                 <Button
                   variant="outlined"
                   startIcon={<DownloadIcon />}
-                  onClick={() => downloadQR(track._id, track.name)}
+                  onClick={() => downloadQR(person._id, person.name)}
                   size="small"
                   sx={{
                     mt: 2,

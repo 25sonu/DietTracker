@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 import PersonCard from './PersonCard';
 
 function ShowPersonList() {
-  const [person, setPersons] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
