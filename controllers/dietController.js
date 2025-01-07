@@ -6,7 +6,7 @@ exports.createDiet= async (req, res) => {
             name: req.body.name,
             age: req.body.age,
             weight:req.body.weight,
-            BMI:req.body.BMI,
+            bmi:req.body.bmi,
             contact_number: req.body.contact_number
         });
         singleDiet = await singleDiet.save();
@@ -42,7 +42,7 @@ exports.updateDiet = async (req, res) => {
             name: req.body.name,
             age: req.body.age,
             weight:req.body.weight,
-            BMI:req.body.BMI,
+            bmi:req.body.bmi,
             contact_number: req.body.contact_number
         }, { new: true }); 
 

@@ -17,7 +17,7 @@ const CreatePerson = (props) => {
         contact_number:'', 
         //admit_Date: '',
         weight:'',
-        BMI:'',
+        bmi:'',
         //availability:'',
       
       
@@ -41,7 +41,7 @@ const CreatePerson = (props) => {
     
          // admit_Date: '',
         weight:'',
-        BMI:'',
+        bmi:'',
         // availability:'',
         
     
@@ -160,8 +160,8 @@ const CreatePerson = (props) => {
                   <div className='form-group'>
                     <input
                       type='Number'
-                      placeholder='BMI'
-                      name='BMI'
+                      placeholder='bmi'
+                      name='bmi'
                       className='form-control'
                       value={person.bmi}
                       onChange={onChange}
