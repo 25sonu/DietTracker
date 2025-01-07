@@ -34,18 +34,18 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/persons')
+    axios.get('https://diettracker-1zc0.onrender.com/api/diets')
       .then(res => {
-        const persons = res.data;
-        const uniquePersons = new Set(persons.map(person => person.author)).size;
-        const recentpersons = persons.sort((a, b) =>
+        const person = res.data;
+        const uniquePerson = new Set(person.map(person => person.author)).size;
+        const recentperson = person.sort((a, b) =>
           new Date(b.published_date) - new Date(a.published_date)
         )[0];
 
         setStats({
-          totalPersons: persons.length,
-          uniquePersons,
-          recentpersons
+          totalPersons: person.length,
+          uniquePerson,
+          recentperson
         });
         setLoading(false);
       })
