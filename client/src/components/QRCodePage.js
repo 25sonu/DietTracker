@@ -14,14 +14,14 @@ import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
 
 const QRCodePage = () => {
-  const [persons, setPersons] = useState([]);
+  const [person, setPerson] = useState([]);
   const [loading, setLoading] = useState(true);
-  const baseUrl = process.env.REACT_APP_TRACK_BASE_URL || 'https://health-tkr.onrender.com/show-track';
+  const baseUrl = 'https://diettracker-1zc0.onrender.com/show-diet/';
 
   useEffect(() => {
-    axios.get('https://health-tkr.onrender.com/api/tracks')
+    axios.get('https://diettracker-1zc0.onrender.com/api/tracks')
       .then((res) => {
-        setPersons(res.data);
+        setPerson(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -30,9 +30,9 @@ const QRCodePage = () => {
       });
   }, []);
 
-  const downloadQR = (personId, trackName) => {
+  const downloadQR = (personId, personName) => {
     const canvas = document.createElement('canvas');
-    const svg = document.getElementById(`qr-${trackId}`);
+    const svg = document.getElementById(`qr-${personId}`);
     const serializer = new XMLSerializer();
     const source = serializer.serializeToString(svg);
 
@@ -46,7 +46,7 @@ const QRCodePage = () => {
       ctx.drawImage(img, 0, 0);
 
       const a = document.createElement('a');
-      a.download = `DietTracker_QR_${trackName.replace(/\s+/g, '_')}.png`;
+      a.download = `DietTracker_QR_${personName.replace(/\s+/g, '_')}.png`;
       a.href = canvas.toDataURL('image/png');
       a.click();
     };
@@ -66,7 +66,7 @@ const QRCodePage = () => {
         Welcome to the Library
       </Typography>
       <Typography variant="body1" gutterBottom align="center" sx={{ mb: 4 }}>
-        Scan a QR code to learn more about a person.
+        Scan a QR code to learn more about a diet.
       </Typography>
   
       <Grid container spacing={3}>
@@ -96,8 +96,8 @@ const QRCodePage = () => {
                 }}
               >
                 <QRCodeSVG
-                  id={`qr-${track._id}`}
-                  value={`${baseUrl}${track._id}`}
+                  id={`qr-${person._id}`}
+                  value={`${baseUrl}${person._id}`}
                   size={200}
                   level="H"
                   includeMargin
@@ -108,7 +108,7 @@ const QRCodePage = () => {
                   align="center"
                   sx={{ mt: 2, mb: 1 }}
                 >
-                  {track.name}
+                  {person.name}
                 </Typography>
                 <Button
                   variant="outlined"

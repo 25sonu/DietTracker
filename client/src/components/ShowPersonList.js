@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 import PersonCard from './PersonCard';
 
 function ShowPersonList() {
-  const [persons, setPersons] = useState([]);
+  const [person, setPerson] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ShowPersonList() {
       .get(`https://diettracker-1zc0.onrender.com/api/diets`)
       
       .then((res) => {
-        setPersons(res.data);
+        setPerson(res.data);
         setLoading(false); // Set loading to false once data is fetched
       })
       .catch((err) => {

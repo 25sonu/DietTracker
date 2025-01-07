@@ -8,12 +8,14 @@ import dietTrackerTheme from './theme/dietTracker';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
  import CreatePerson from './components/CreatePerson';
- import ShowTrackList from './components/ShowTrackList';
  import ShowPersonList from './components/ShowPersonList';
+ 
  import ShowPersonDetails from './components/ShowPersonDetails';
  import ExportPage from './components/ExportPage';
  import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
+ import SearchPerson from './components/SearchPerson';
+ import QRCodePage from './components/QRCodePage';
 
 // import NotesPage from './components/NotesPage'; // Import NotesPage component
 
@@ -33,6 +35,8 @@ const App = () => {
               <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> 
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
               <Route path="/export" element={<ExportPage />} />
+              <Route path="/search" element={<SearchPerson />} />
+              <Route path="/qr-codes" element={<QRCodePage />} />
               {/* <Route path='/notes/*' element={<NotesPage />} />   */}
             </Routes>
           </Box>

@@ -1,4 +1,4 @@
-// src/components/Searchpersons.js
+// src/components/Searchperson.js
 import React, { useState, useEffect } from 'react';
 import {
     Container,
@@ -20,9 +20,9 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonCard from './PersonCard';
 import axios from 'axios';
 
-const SearchPersons = () => {
-    const [persons, setPersons] = useState([]);
-    const [filteredPersons, setFilteredPersons] = useState([]);
+const SearchPerson = () => {
+    const [person, setPerson] = useState([]);
+    const [filteredPerson, setFilteredPerson] = useState([]);
     const [loading, setLoading] = useState(true);
     const [contact_number, setContact_number] = useState([]);
 
@@ -37,15 +37,15 @@ const SearchPersons = () => {
     useEffect(()=>{
         axios.get('/api/diets')
         .then(res => {
-            setPersons(res.data);
-            setFilteredPersons(res.data);
+            setPerson(res.data);
+            setFilteredPerson(res.data);
             // Extract unique contact_number
             const uniqueContact_number = [...new Set(res.data.map(person => person.contact_number))];
             setContact_number(uniqueContact_number);
             setLoading(false);
     })
     .catch((err) => {
-        console.error('Error fetching tracks:', err);
+        console.error('Error fetching diets:', err);
         setLoading(false);
       });
   }, []);
