@@ -17,7 +17,7 @@ const ExportPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('${URL}/api/diets')
+    axios.get(`${URL}/api/diets`)
       .then(res => {
         setPerson(res.data); // Changed from setPersons to setPerson
         setLoading(false);

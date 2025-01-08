@@ -36,7 +36,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('${URL}/api/diets')
+    axios.get(`${URL}/api/diets`)
       .then(res => {
         const person = res.data;
         const uniquePerson = new Set(person.map(person => person.author)).size;

@@ -34,7 +34,7 @@ const SearchPerson = () => {
 
   useEffect(() => {
     axios
-      .get(`https://diettracker-1zc0.onrender.com/api/diets`)
+      .get(`${URL}/api/diets`)
       .then((res) => {
         setPerson(res.data);
         setFilteredPerson(res.data);

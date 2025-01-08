@@ -28,7 +28,7 @@ const QRCodePage = () => {
   // Fetch diet data when the component loads
   useEffect(() => {
     axios
-      .get("${URL}/api/diets") // API endpoint to fetch clinic data
+      .get(`${URL}/api/diets`) // API endpoint to fetch clinic data
       .then(res => {
         console.log(res.data); // Debug: inspect the API response
         // Safeguard: Ensure person is an array

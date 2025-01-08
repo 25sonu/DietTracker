@@ -37,7 +37,7 @@ const CreatePerson = () => {
     e.preventDefault();
 
     axios
-      .post('${URL}/api/diets', person)
+      .post(`${URL}/api/diets`, person)
       .then(() => {
         setPerson({
           name: '',
