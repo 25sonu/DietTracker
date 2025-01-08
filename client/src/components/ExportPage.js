@@ -37,12 +37,12 @@ const ExportPage = () => {
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 25);
 
     // Create table data
-    const tableColumn = ["name", "age", "weight", "BMI", "contact_number"];
+    const tableColumn = ["name", "age", "weight", "bmi", "contact_number"];
     const tableRows = persons.map(person => [
      person.name,
      person.age,
      person.weight,
-     person.BMI,
+     person.bmi,
     
       new Date(person.contact_number).toLocaleDateString()
     ]);
@@ -64,7 +64,7 @@ const ExportPage = () => {
       Name: person.name,
       Age:person.age,
       Weight:person.weight,
-      BMI: person.bmi,
+      bmi: person.bmi,
       'Contact_number': new Date(person.contact_number).toLocaleDateString(),
       
     })));
@@ -81,7 +81,7 @@ const ExportPage = () => {
       Name:person.name,
       Age:person.age,
       Weight:person.weight,
-      BMI:person.bmi,
+      bmi:person.bmi,
       'Contact_number': new Date(person.contact_number).toLocaleDateString(),
       
     })));
@@ -100,7 +100,7 @@ const ExportPage = () => {
       content += `Name: ${person.name}\n`;
       content += `Age: ${person.age}\n`;
       content += `Weight: ${person.weight}\n`;
-      content += `BMI: ${person.bmi}\n`;
+      content += `bmi: ${person.bmi}\n`;
       content += `Contact_number: ${new Date(person.contact_number).toLocaleDateString()}\n`;
       content += `Description: ${person.description || 'N/A'}\n`;
       content += '\n----------------------------\n\n';

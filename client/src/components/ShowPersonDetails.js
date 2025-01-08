@@ -34,7 +34,7 @@ const ShowPersonDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/persons/${id}`)
+      .get(`https://diettracker-1zc0.onrender.com/api/persons/${id}`)
       .then((res) => {
         setPerson(res.data);
       })
@@ -49,7 +49,7 @@ const ShowPersonDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`/api/persons/${id}`)
+      .delete(`https://diettracker-1zc0.onrender.com/api/persons/${id}`)
       .then((res) => {
         navigate('/person-list');
       })
@@ -91,7 +91,7 @@ const ShowPersonDetails = () => {
               <Typography variant="body1" paragraph>
                 {person.contact_number}
               </Typography>
-              <Typography variant="body1">BMI: {person.BMI}</Typography>
+              <Typography variant="body1">bmi: {person.bmi}</Typography>
               <Typography variant="body1">weight: {person.weight}</Typography>
               <Typography variant="body1">admit_Date: {person.admit_Date}</Typography>
             </Box>
@@ -112,7 +112,7 @@ const ShowPersonDetails = () => {
             <Button
               startIcon={<EditIcon />}
               component={RouterLink}
-              to={`/edit-person/${person._id}`}
+              to={`/edit-person/${id}`}
               variant="contained"
               color="primary"
               sx={{ mr: 1 }}

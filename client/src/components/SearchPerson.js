@@ -142,7 +142,7 @@
 //                                 <MenuItem value="name">Name</MenuItem>
 //                                 <MenuItem value="age">Age</MenuItem>
 //                                 <MenuItem value="weight">Weight</MenuItem>
-//                                 <MenuItem value="bmi">BMI</MenuItem>
+//                                 <MenuItem value="bmi">bmi</MenuItem>
 //                             </Select>
 //                         </FormControl>
 //                     </Grid>

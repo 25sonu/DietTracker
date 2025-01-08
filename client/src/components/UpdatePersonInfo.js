@@ -1,40 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Typography,
+ 
+  Grid,
+} from "@mui/material";
+import axios from "axios";
+import { useSnackbar } from "notistack"; // Import the useSnackbar hook
 
-function UpdatePersonInfo(props) {
+//const URL = process.env.REACT_APP_API_URL; // Access environment variable
+
+function UpdatePersonInfo() {
   const [person, setPerson] = useState({
-    name: '',
-    age:'',
-    contact_number:'', 
-    admit_Date: '',
-    weight:'',
-    BMI:'',
-    availability:'',
+   name: "",
+    age: "",
+    weight:"",
+    bmi:"",
+    contact_number: "",
+    // admit_Date: "",
+    // previous_admit: "",
   });
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar(); // Initialize the notification hook
+
 
   useEffect(() => {
     axios
-      .get(`https://diettracker-1zc0.onrender.com${id}`)
+      .get(`https://diettracker-1zc0.onrender.com/api/diets/${id}`)
       .then((res) => {
-        setPerson({
-          name: res.data.name,
-          age: res.data.age,
-          contact_number: res.data.contact_number,
-          admit_Date: res.data.admit_Date,
-          weight: res.data.weight,
-          BMI: res.data.BMI,
-          availability: res.data.availability,
-        });
+        setPerson(res.data);
       })
       .catch((err) => {
-        console.log('Error from UpdatePersonInfo GET request');
-        console.log(err)
+        console.error("Error from UpdatePerson GET request", err);
+        enqueueSnackbar("Failed to fetch person details.", { variant: "error" });
       });
-  }, [id]);
+  }, [id, enqueueSnackbar]); // Remove 'URL' from the dependency array because it is a stable constant.
+  // React expects 'URL' to be in the dependency array, but since it doesn't change, it can be safely excluded.
 
   const onChange = (e) => {
     setPerson({ ...person, [e.target.name]: e.target.value });
@@ -43,125 +50,128 @@ function UpdatePersonInfo(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-    name: person.name,
-    age: person.age,
-    contact_number:person.contact_number, 
-    admit_Date: person.admit_Date,
-    weight:person.weight,
-    BMI:person.BMI,
-    availability:person.availability,
-      
-    };
-
     axios
-      .put(`https://diettracker-1zc0.onrender.com${id}`, data)
-      .then((res) => {
-        navigate(`/show-person/${id}`);
+      .put(`https://diettracker-1zc0.onrender.com/api/diets/${id}`, person)
+      .then(() => {
+        enqueueSnackbar("Person updated successfully!", { variant: "success" });
+        navigate(`/detail/${id}`);
       })
       .catch((err) => {
-        console.log('Error in UpdatePersonInfo PUT request ->');
-        console.log(err)
+        console.error("Error in UpdatePerson PUT request", err);
+        enqueueSnackbar("Failed to update person details. Please try again.", { variant: "error" });
       });
   };
 
   return (
-    <div className='UpdatePersonInfo'>
-      
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Person List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Edit Person</h1>
-            <p className='lead text-center'>Update Person's Info</p>
-          </div>
-        </div>
+    <Container maxWidth="sm">
+      <Box mt={4} mb={2}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Edit Person
+        </Typography>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Update Person's Information
+        </Typography>
+      </Box>
 
-        <div className='col-md-8 m-auto'>
-          <form noValidate onSubmit={onSubmit}>
-            <div className='form-group'>
-              <label htmlFor='name'>Name</label>
-              <input
-                type='text'
-                placeholder='Name of the Person'
-                name='name'
-                className='form-control'
-                value={person.name}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+      <Box mb={2}>
+        <Button
+          component={Link}
+          to="/list"
+          variant="outlined"
+          color="secondary"
+          fullWidth
+        >
+          Show Persons List
+        </Button>
+      </Box>
 
-            <div className='form-group'>
-              <label htmlFor='age'>Age</label>
-              <input
-                type='text'
-                placeholder='Age'
-                name='age'
-                className='form-control'
-                value={person.age}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+      <form noValidate onSubmit={onSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Name"
+              name="name"
+              value={person.name}
+              onChange={onChange}
+              variant="outlined"
+            />
+          </Grid>
 
-            <div className='form-group'>
-              <label htmlFor='contact_number'>Contact_number</label>
-              <input
-                type='text'
-                placeholder='Contact_number'
-                name='contact_number'
-                className='form-control'
-                value={person.contact_number}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Age"
+              type="Number"
+              name="age"
+              value={person.age}
+              onChange={onChange}
+              variant="outlined"
+            />
+          </Grid>
 
-            <div className='form-group'>
-              <label htmlFor='bmi'>BMI</label>
-              <textarea
-                type='text'
-                placeholder='BMI'
-                name='bmi'
-                className='form-control'
-                value={person.bmi}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="weight"
+              type="Number"
+              name="weight"
+              value={person.weight}
+              onChange={onChange}
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="bmi"
+              name="bmi"
+              value={person.bmi}
+              onChange={onChange}
+              variant="outlined"
+            />
+          </Grid>
 
-            <div className='form-group'>
-              <label htmlFor='weight'>Weight</label>
-              <input
-                type='text'
-                placeholder='Weight of the person'
-                name='weight'
-                className='form-control'
-                value={person.weight}
-                onChange={onChange}
-              />
-            </div>
-            <br />
+          {/* <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Admit Date"
+              type="date"
+              name="admit_Date"
+              value={patient.admit_Date}
+              onChange={onChange}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid> */}
 
+<Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="contact_number"
+              type="Number"
+              name="contact_number"
+              value={person.contact_number}
+              onChange={onChange}
+              variant="outlined"
+            />
+          </Grid>
 
-            <button
-              type='submit'
-              className='btn btn-outline-info btn-lg btn-block'
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
             >
               Update Person
-            </button>
-            <br /> <br />
-          </form>
-        </div>
-      </div>
-
-    </div>
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Container>
   );
 }
 

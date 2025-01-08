@@ -35,9 +35,9 @@ function ShowPersonList() {
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
-        background: 'linear-gradient(to right, #d3c0eb, #a2c2e0)', // Subtle blue gradient
-        borderRadius: 8,
-        boxShadow: 4,
+        background: 'linear-gradient(to right,rgb(159, 100, 231),rgb(82, 151, 214))', // Subtle blue gradient
+        borderRadius: 10,
+        boxShadow: 6,
       }}
     >
       {/* Card-like Box for Title and Button */}
