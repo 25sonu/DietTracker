@@ -1,4 +1,3 @@
-// src/components/ExportPage.js
 import React, { useState, useEffect } from 'react';
 import { Container, Paper, Typography, Button, Box, CircularProgress } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -12,13 +11,13 @@ import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
 const ExportPage = () => {
-  const [persons, setPersons] = useState([]);
+  const [person, setPerson] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://diettracker-1zc0.onrender.com')
+    axios.get('https://diettracker-1zc0.onrender.com/api/diets')
       .then(res => {
-        setPersons(res.data);
+        setPerson(res.data); // Changed from setPersons to setPerson
         setLoading(false);
       })
       .catch(err => {
@@ -26,6 +25,12 @@ const ExportPage = () => {
         setLoading(false);
       });
   }, []);
+
+  const Date = (date) => {
+    if (!date) return 'N/A';
+    const parsedDate = new Date(date);
+    return isNaN(parsedDate) ? 'N/A' : parsedDate.toLocaleDateString();
+  };
 
   const exportToPDF = () => {
     const doc = new jsPDF();
@@ -37,14 +42,15 @@ const ExportPage = () => {
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 25);
 
     // Create table data
-    const tableColumn = ["name", "age", "weight", "bmi", "contact_number"];
-    const tableRows = persons.map(person => [
-     person.name,
-     person.age,
-     person.weight,
-     person.bmi,
-    
-      new Date(person.contact_number).toLocaleDateString()
+    const tableColumn = ["name", "age" , "weight", "bmi", "contact_number" ];
+    const tableRows = person.map(person => [
+      person.name,
+      person.age,
+      person.weight,
+      person.bmi,
+      person.contact_number,
+      
+      // new Date(person.date).toLocaleDateString()
     ]);
 
     doc.autoTable({
@@ -56,58 +62,61 @@ const ExportPage = () => {
       headStyles: { fillColor: [41, 128, 185], textColor: 255 }
     });
 
-    doc.save('persons-list.pdf');
+    doc.save('person-list.pdf');
   };
 
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(persons.map(person => ({
-      Name: person.name,
-      Age:person.age,
-      Weight:person.weight,
+    const worksheet = XLSX.utils.json_to_sheet(person.map(person => ({ // Changed from persons to person
+      name: person.name, 
+      age: person.age,// Corrected to use the correct object property
+      weight: person.weight,
       bmi: person.bmi,
-      'Contact_number': new Date(person.contact_number).toLocaleDateString(),
+      contact_number: person.contact_number,
       
+      // 'Published Date': new Date(t.date).toLocaleDateString(),
     })));
 
-    const workperson = XLSX.utils.person_new();
-    XLSX.utils.person_append_sheet(workperson, worksheet, "Persons");
-    const excelBuffer = XLSX.write(workperson, { personType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(data, 'persons-list.xlsx');
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Persons');
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(data, 'person-list.xlsx');
   };
 
   const exportToCSV = () => {
-    const worksheet = XLSX.utils.json_to_sheet(persons.map(person => ({
-      Name:person.name,
-      Age:person.age,
-      Weight:person.weight,
-      bmi:person.bmi,
-      'Contact_number': new Date(person.contact_number).toLocaleDateString(),
+    const worksheet = XLSX.utils.json_to_sheet(person.map(person => ({ 
+      name: person.name,
+      age: person.age, // Corrected to use the correct object property
+      weight: person.weight,
+      bmi: person.bmi,
+      contact_number: person.contact_number,
       
+
     })));
 
     const csv = XLSX.utils.sheet_to_csv(worksheet);
     const data = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-    saveAs(data, 'persons-list.csv');
+    saveAs(data, 'person-list.csv');
   };
 
   const exportToText = () => {
     let content = 'PERSONS LIST\n\n';
     content += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
     
-    persons.forEach((person, index) => {
+    person.forEach((person, index) => { // Changed from persons to person
       content += `${index + 1}. PERSON DETAILS\n`;
-      content += `Name: ${person.name}\n`;
-      content += `Age: ${person.age}\n`;
-      content += `Weight: ${person.weight}\n`;
+      content += `name: ${person.name}\n`; // Changed from person.name to t.name
+      content += `age: ${person.age}\n`;
+      content += `weight: ${person.weight}\n`;
       content += `bmi: ${person.bmi}\n`;
-      content += `Contact_number: ${new Date(person.contact_number).toLocaleDateString()}\n`;
-      content += `Description: ${person.description || 'N/A'}\n`;
+      content += `contact_number: ${person.contact_number}\n`; // Changed from person.weight to t.weight
       content += '\n----------------------------\n\n';
     });
 
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, 'persons-list.txt');
+    saveAs(blob, 'person-list.txt');
   };
 
   if (loading) {
@@ -122,11 +131,11 @@ const ExportPage = () => {
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Paper sx={{ p: 4 }}>
         <Typography variant="h4" gutterBottom align="center" color="primary">
-          Export Persons
+          Manage Exports
         </Typography>
         
         <Typography variant="body1" sx={{ mb: 4 }} align="center" color="text.secondary">
-          Export your person collection in different formats
+          Choose a format to export your person collection seamlessly
         </Typography>
 
         <Box sx={{ 
@@ -140,9 +149,9 @@ const ExportPage = () => {
             size="large"
             startIcon={<PictureAsPdfIcon />}
             onClick={exportToPDF}
-            sx={{ p: 2 }}
+            sx={{ p: 2, backgroundColor: '#d32f2f' }}
           >
-            Export as PDF
+            Export PDF
           </Button>
 
           <Button
@@ -150,9 +159,9 @@ const ExportPage = () => {
             size="large"
             startIcon={<TableViewIcon />}
             onClick={exportToCSV}
-            sx={{ p: 2 }}
+            sx={{ p: 2, backgroundColor: '#1976d2' }}
           >
-            Export as CSV
+            Export CSV
           </Button>
 
           <Button
@@ -160,9 +169,9 @@ const ExportPage = () => {
             size="large"
             startIcon={<DownloadIcon />}
             onClick={exportToExcel}
-            sx={{ p: 2 }}
+            sx={{ p: 2, backgroundColor: '#388e3c' }}
           >
-            Export as Excel
+            Export Excel
           </Button>
 
           <Button
@@ -170,14 +179,14 @@ const ExportPage = () => {
             size="large"
             startIcon={<DescriptionIcon />}
             onClick={exportToText}
-            sx={{ p: 2 }}
+            sx={{ p: 2, backgroundColor: '#f57c00' }}
           >
-            Export as Text
-          </Button>
+            Export Text
+          </Button> 
         </Box>
 
         <Typography variant="body2" sx={{ mt: 4 }} align="center" color="text.secondary">
-          Total Persons: {persons.length}
+          Total Persons Available for Export: {person.length}
         </Typography>
       </Paper>
     </Container>
