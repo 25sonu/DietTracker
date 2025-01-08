@@ -78,9 +78,9 @@ const ShowPersonDetails = () => {
               <Typography variant="body1">
                 <strong>Weight:</strong> {person.weight}
               </Typography>
-              <Typography variant="body1">
+              {/* <Typography variant="body1">
                 <strong>Admit Date:</strong> {person.admit_Date || "N/A"}
-              </Typography>
+              </Typography> */}
             </Box>
           </Grid>
         </Grid>
