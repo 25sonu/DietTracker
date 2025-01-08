@@ -14,21 +14,21 @@ import {
 import DownloadIcon from '@mui/icons-material/Download'; // Icon for the download button
 import axios from 'axios'; // Axios for API requests
 
-const URL = process.env.REACT_APP_API_URL; // Access environment variable
+//const URL = process.env.REACT_APP_API_URL; // Access environment variable
 
 const QRCodePage = () => {
-  // State for storing clinic data
+  // State for storing diet data
   const [person, setPerson] = useState([]); // Ensure initial state is an empty array
   // State for handling loading status
   const [loading, setLoading] = useState(true);
 
-  // Base URL for accessing clinic details (to be embedded in QR code)
-  const baseUrl = `${URL}/detail/`;
+  // Base URL for accessing diet details (to be embedded in QR code)
+  const baseUrl = `https://diettracker-1zc0.onrender.com/show-person/`;
 
-  // Fetch clinic data when the component loads
+  // Fetch diet data when the component loads
   useEffect(() => {
     axios
-      .get(`${URL}/api/clinics`) // API endpoint to fetch clinic data
+      .get("https://diettracker-1zc0.onrender.com/api/diets") // API endpoint to fetch clinic data
       .then(res => {
         console.log(res.data); // Debug: inspect the API response
         // Safeguard: Ensure person is an array
@@ -36,7 +36,7 @@ const QRCodePage = () => {
         setLoading(false); // Set loading to false once data is loaded
       })
       .catch(err => {
-        console.error('Error fetching clinics:', err); // Log errors, if any
+        console.error('Error fetching diets:', err); // Log errors, if any
         setLoading(false); // Ensure loading is false even in case of an error
       });
   }, []); // Empty dependency array ensures this runs only once
@@ -99,7 +99,7 @@ const QRCodePage = () => {
                 alignItems: 'center',
                 width: '100%'
               }}>
-                {/* Generate QR code for each clinic */}
+                {/* Generate QR code for each diet */}
                 <QRCodeSVG
                   id={`qr-${person._id}`} // Unique ID for each QR code
                   value={`${baseUrl}${person._id}`} // URL to embed in QR code
@@ -113,7 +113,7 @@ const QRCodePage = () => {
                   align="center"
                   sx={{ mt: 2, mb: 1 }}
                 >
-                  {person.Person_name} {/* Clinic name */}
+                  {person.Person_name} {/* diet name */}
                 </Typography>
                 <Typography
                   variant="body2"
@@ -121,7 +121,7 @@ const QRCodePage = () => {
                   align="center"
                   sx={{ mb: 2 }}
                 >
-                  Age of {person.age} {/* Clinic manager */}
+                  Age of {person.age} {/* diet manager */}
                 </Typography>
                 {/* Button to download QR code */}
                 <Button

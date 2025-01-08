@@ -1,207 +1,175 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
-//import {  Grid, Typography, TextField, Button, Box, Paper ,InputLabel} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Slide,
+  ToastContainer,
+  toast
+} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container} from '@mui/material';
-//import axios from 'axios';
-
-
-
+import {
+  Container,
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Paper,
+} from '@mui/material';
 import axios from 'axios';
 
-const CreatePerson = (props) => {
-    const navigate = useNavigate();
-    const [person, setPerson] = useState({
-        name: '',
-        age:'',
-        contact_number:'', 
-        //admit_Date: '',
-        weight:'',
-        bmi:'',
-        //availability:'',
-      
-      
-    });
-    const [ setShowToast] = useState(false);
+const CreatePerson = () => {
+  const navigate = useNavigate();
+  const [person, setPerson] = useState({
+    name: '',
+    age: '',
+    contact_number: '',
+    weight: '',
+    bmi: '',
+  });
 
-    const onChange = (e) => {
-        setPerson({ ...person, [e.target.name]: e.target.value });
-      };
-    
-      const onSubmit = (e) => {
-        e.preventDefault();
-        
+  const onChange = (e) => {
+    setPerson({ ...person, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
     axios
-    .post('https://diettracker-1zc0.onrender.com/api/diets',person)
-    .then((res) => {
-      setPerson({
-        name: '',
-        age:'',
-        contact_number:'', 
-    
-         // admit_Date: '',
-        weight:'',
-        bmi:'',
-        // availability:'',
-        
-    
-        
-      });
+      .post('https://diettracker-1zc0.onrender.com/api/diets', person)
+      .then(() => {
+        setPerson({
+          name: '',
+          age: '',
+          contact_number: '',
+          weight: '',
+          bmi: '',
+        });
 
-      
-        // Show the success alert
         toast.success('Person added successfully!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Slide,
-          });
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Slide,
+        });
 
-          setTimeout(() => {
-            setShowToast(false); // Hide the toast
-            navigate('/'); // Navigate to homepage
-          }, 5000); // Adjust the timeout as needed
-  
-        })
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      })
+      .catch(() => {
+        toast.error('Something went wrong, try again!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Slide,
+        });
+      });
+  };
 
-        .catch((err) => {
-          console.log('Error in CreatePerson!');
-          console.log('The error is -> ')
-          console.log(err)
-           
-            // Show the success alert
-            toast.error('Something went wrong, try again!', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Slide,
-            });
-          });
-      };
+  return (
+    <Container maxWidth="sm" sx={{ py: 5 }}>
+      <ToastContainer theme="dark" />
+      <Paper elevation={3} sx={{ p: 4, backgroundColor: 'background.paper', color: 'text.primary' }}>
+        <Typography variant="h4" component="h1" gutterBottom textAlign="center">
+          Add Person
+        </Typography>
+        <Typography variant="body1" textAlign="center" mb={3} color="text.secondary">
+          Fill in the details to create a new person.
+        </Typography>
 
-      return (
-        <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
-        <div className='CreatePerson'>
-          {/* <Navbar /> */}
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Slide}
-          />
-    
-          <div className='container'>
-            <div className='row'>
-              <div className='col-md-8 m-auto'>
-                <br />
-                <Link to='/' className='btn btn-outline-warning float-left'>
-                  Show Person List
-                </Link>
-              </div>
-              <div className='col-md-8 m-auto'>
-                <h1 className='display-4 text-center'>Add Person</h1>
-                <p className='lead text-center'>Create new person</p>
-    
-                <form noValidate onSubmit={onSubmit}>
-                  {/* <Name /> */}
-                  <div className='form-group'>
-                    <input
-                      type='String'
-                      placeholder='Name of the Person'
-                      name='name'
-                      className='form-control'
-                      value={person.name}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Age /> */}
-                  <div className='form-group'>
-                    <input
-                      type='Number'
-                      placeholder='age of the person'
-                      name='age'
-                      className='form-control'
-                      value={person.age}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Weight /> */}
-                  <div className='form-group'>
-                    <input
-                      type='Number'
-                      placeholder='weight'
-                      name='weight'
-                      className='form-control'
-                      value={person.weight}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <BMI /> */}
-                  <div className='form-group'>
-                    <input
-                      type='Number'
-                      placeholder='bmi'
-                      name='bmi'
-                      className='form-control'
-                      value={person.bmi}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Contact Number /> */}
-                  <div className='form-group'>
-                    <input
-                      type='Number'
-                      placeholder='contact_number'
-                      name='contact_number'
-                      className='form-control'
-                      value={person.contact_number}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-    
-                 
-    
-                  <input
-                    type='submit'
-                    className='btn btn-outline-warning btn-block mt-4'
-                  />
-                </form>
-              </div>
-            </div>
-          </div>
-    
-    
-        </div>
-        </Container>
-      );
-    };
-    
-    export default CreatePerson;
-    
+        <form onSubmit={onSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Name"
+                name="name"
+                variant="outlined"
+                value={person.name}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Age"
+                name="age"
+                variant="outlined"
+                type="number"
+                value={person.age}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Weight"
+                name="weight"
+                variant="outlined"
+                type="number"
+                value={person.weight}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="BMI"
+                name="bmi"
+                variant="outlined"
+                type="number"
+                value={person.bmi}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Contact Number"
+                name="contact_number"
+                variant="outlined"
+                type="tel"
+                value={person.contact_number}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="space-between">
+                <Button
+                  component={Link}
+                  to="/"
+                  variant="outlined"
+                  color="secondary"
+                >
+                  Back to List
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
+  );
+};
 
-    
-  
+export default CreatePerson;

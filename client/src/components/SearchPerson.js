@@ -1,235 +1,206 @@
-// // src/components/Searchperson.js
-// import React, { useState, useEffect } from 'react';
-// import {
-//     Container,
-//     TextField,
-//     Typography,
-//     Box,
-//     Card,
-//     CardContent,
-//     Grid,
-//     MenuItem,
-//     Select,
-//     FormControl,
-//     InputLabel,
-//     Button,
-//     CircularProgress
-// } from '@mui/material';
-// import SearchIcon from '@mui/icons-material/Search';
-// import RestartAltIcon from '@mui/icons-material/RestartAlt';
-// import PersonCard from './PersonCard';
-// import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Box,
+  Typography,
+  TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  Button,
+  CircularProgress,
+  Grid,
+  Card,
+  CardContent,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PersonCard from './PersonCard';
+import axios from 'axios';
 
-// const SearchPerson = () => {
-//     const [person, setPerson] = useState([]);
-//     const [filteredPerson, setFilteredPerson] = useState([]);
-//     const [loading, setLoading] = useState(true);
-//     const [contact_number, setContact_number] = useState([]);
+//const URL = process.env.REACT_APP_API_URL; // Access environment variable
 
-//     const [filters, setFilters] = useState({
-//         searchTerm: "",
-//         searchField: "food_name",
-//         sortBy: "food_name",
-//         sortOrder: "asc",
-//         contact_number:"all"
-//     });
-    
-//     useEffect(()=>{
-//         axios.get('https://diettracker-1zc0.onrender.com/api/diets')
-//         .then(res => {
-//             setPerson(res.data);
-//             setFilteredPerson(res.data);
-//             // Extract unique contact_number
-//             const uniqueContact_number = [...new Set(res.data.map(person => person.contact_number))];
-//             setContact_number(uniqueContact_number);
-//             setLoading(false);
-//     })
-//     .catch((err) => {
-//         console.error('Error fetching diets:', err);
-//         setLoading(false);
-//       });
-//   }, []);
-// }
+const SearchPerson = () => {
+  const [person, setPerson] = useState([]);
+  const [filteredPerson, setFilteredPerson] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    searchTerm: '',
+    searchField: 'name', // Matches CreatePerson
+    sortBy: 'name', // Matches CreatePerson
+    sortOrder: 'asc',
+  });
 
-// const applyFilters = () => {
-//     let result = [...persons];
+  useEffect(() => {
+    axios
+      .get(`https://diettracker-1zc0.onrender.com/api/diets`)
+      .then((res) => {
+        setPerson(res.data);
+        setFilteredPerson(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching persons:', err);
+        setLoading(false);
+      });
+  }, []);
 
-//     // Apply search
-//     if (filters.searchTerm) {
-//         result = result.filter(person => {
-//             const searchValue = person[filters.searchField]?.toString().toLowerCase();
-//             return searchValue?.includes(filters.searchTerm.toLowerCase());
-//         });
-//     }
+  const applyFilters = useCallback(() => {
+    let result = [...person];
 
-//     // Apply publisher filter
-//     //if (filters.publisher !== 'all') {
-//        // result = result.filter(person => person.name === filters.name);
-//    // }
+    // Search filter
+    if (filters.searchTerm) {
+      result = result.filter((person) => {
+        const searchValue = person[filters.searchField]?.toString().toLowerCase();
+        return searchValue?.includes(filters.searchTerm.toLowerCase());
+      });
+    }
 
-//     // Apply sorting
-//     result.sort((a, b) => {
-//         let valueA = a[filters.sortBy]?.toString().toLowerCase();
-//         let valueB = b[filters.sortBy]?.toString().toLowerCase();
+    // Sorting
+    result.sort((a, b) => {
+      let valueA = a[filters.sortBy]?.toString().toLowerCase();
+      let valueB = b[filters.sortBy]?.toString().toLowerCase();
 
-//         if (filters.sortBy === 'contact_number') {
-//             valueA = new Date(a.);
-//             valueB = new Date(b.published_date);
-//         }
+      if (valueA < valueB) return filters.sortOrder === 'asc' ? -1 : 1;
+      if (valueA > valueB) return filters.sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
 
-//         if (valueA < valueB) return filters.sortOrder === 'asc' ? -1 : 1;
-//         if (valueA > valueB) return filters.sortOrder === 'asc' ? 1 : -1;
-//         return 0;
-//     });
+    setFilteredPerson(result);
+  }, [filters, person]);
 
-//     setFilteredPersons(result);
-// };
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
-// useEffect(() => {
-//     applyFilters();
-// }, [filters]);
+  const resetFilters = () => {
+    setFilters({
+      searchTerm: '',
+      searchField: 'name',
+      sortBy: 'name',
+      sortOrder: 'asc',
+    });
+  };
 
-// const resetFilters = () => {
-//     setFilters({
-//         searchTerm: "",
-//         searchField: "food_name",
-//         sortBy: "food_name",
-//         sortOrder: "asc",
-//         contact_number:"all"
-//     });
-// };
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-// if (loading) {
-//     return (
-//         <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-//             <CircularProgress />
-//         </Box>
-//     );
-// }
+  return (
+    <Box sx={{ maxWidth: 1000, mx: 'auto', p: 3, mt: 5, bgcolor: 'background.default', borderRadius: 2 }}>
+      <Typography variant="h4" align="center" color="text.primary" gutterBottom>
+        Search Person
+      </Typography>
+      <Typography variant="body1" align="center" color="text.secondary" gutterBottom>
+        Find a person record from the database
+      </Typography>
 
-// return (
-//     <Container maxWidth="lg" sx={{ py: 4 }}>
-//         <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
-//             Search Persons
-//         </Typography>
+      {/* Search and Filter Section */}
+      <Card sx={{ p: 3, mt: 3, bgcolor: 'background.paper', borderRadius: 2 }}>
+        <CardContent>
+          <Grid container spacing={2} alignItems="center">
+            {/* Search Field */}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Search"
+                value={filters.searchTerm}
+                onChange={(e) => setFilters({ ...filters, searchTerm: e.target.value })}
+                InputProps={{
+                  startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />,
+                }}
+                sx={{ bgcolor: 'background.default', borderRadius: 1 }}
+              />
+            </Grid>
 
-//         {/* Search and Filter Section */}
-//         <Card sx={{ mb: 4, p: 2 }}>
-//             <CardContent>
-//                 <Grid container spacing={2} alignItems="center">
-//                     {/* Search Field */}
-//                     <Grid item xs={12} md={4}>
-//                         <TextField
-//                             fullWidth
-//                             label="Search"
-//                             value={filters.searchTerm}
-//                             onChange={(e) => setFilters({ ...filters, searchTerm: e.target.value })}
-//                             InputProps={{
-//                                 startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />
-//                             }}
-//                         />
-//                     </Grid>
+            {/* Search By Dropdown */}
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Search By</InputLabel>
+                <Select
+                  value={filters.searchField}
+                  label="Search By"
+                  onChange={(e) => setFilters({ ...filters, searchField: e.target.value })}
+                  sx={{ bgcolor: 'background.default', borderRadius: 1 }}
+                >
+                  <MenuItem value="Person_name"> Name</MenuItem>
+                  <MenuItem value="age">Age</MenuItem>
+                  <MenuItem value="gender">Weight</MenuItem>
+                  <MenuItem value="contact_number">bmi</MenuItem>
+                  <MenuItem value="admit_Date">Contact_number</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-//                     {/* Search By Dropdown */}
-//                     <Grid item xs={12} md={2}>
-//                         <FormControl fullWidth>
-//                             <InputLabel>Search By</InputLabel>
-//                             <Select
-//                                 value={filters.searchField}
-//                                 label="Search By"
-//                                 onChange={(e) => setFilters({ ...filters, searchField: e.target.value })}
-//                             >
-//                                 <MenuItem value="name">Name</MenuItem>
-//                                 <MenuItem value="age">Age</MenuItem>
-//                                 <MenuItem value="weight">Weight</MenuItem>
-//                                 <MenuItem value="bmi">bmi</MenuItem>
-//                             </Select>
-//                         </FormControl>
-//                     </Grid>
+            {/* Sort By Dropdown */}
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Sort By</InputLabel>
+                <Select
+                  value={filters.sortBy}
+                  label="Sort By"
+                  onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
+                  sx={{ bgcolor: 'background.default', borderRadius: 1 }}
+                >
+                  <MenuItem value="Person_name"> Name</MenuItem>
+                  <MenuItem value="age">Age</MenuItem>
+                  <MenuItem value="gender">Weight</MenuItem>
+                  <MenuItem value="admit_Date">bmi</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-//                     {/* Sort By Dropdown */}
-//                     <Grid item xs={12} md={2}>
-//                         <FormControl fullWidth>
-//                             <InputLabel>Sort By</InputLabel>
-//                             <Select
-//                                 value={filters.sortBy}
-//                                 label="Sort By"
-//                                 onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
-//                             >
-//                                 <MenuItem value="name">Name</MenuItem>
-//                                 <MenuItem value="age">Age</MenuItem>
-//                                 <MenuItem value="contact_number">Contact_number</MenuItem>
-//                             </Select>
-//                         </FormControl>
-//                     </Grid>
+            {/* Sort Order */}
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Order</InputLabel>
+                <Select
+                  value={filters.sortOrder}
+                  label="Order"
+                  onChange={(e) => setFilters({ ...filters, sortOrder: e.target.value })}
+                  sx={{ bgcolor: 'background.default', borderRadius: 1 }}
+                >
+                  <MenuItem value="asc">Ascending</MenuItem>
+                  <MenuItem value="desc">Descending</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-//                     {/* Sort Order */}
-//                     <Grid item xs={12} md={2}>
-//                         <FormControl fullWidth>
-//                             <InputLabel>Order</InputLabel>
-//                             <Select
-//                                 value={filters.sortOrder}
-//                                 label="Order"
-//                                 onChange={(e) => setFilters({ ...filters, sortOrder: e.target.value })}
-//                             >
-//                                 <MenuItem value="asc">Ascending</MenuItem>
-//                                 <MenuItem value="desc">Descending</MenuItem>
-//                             </Select>
-//                         </FormControl>
-//                     </Grid>
+            {/* Reset Filters Button */}
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="center">
+                <Button
+                  variant="outlined"
+                  startIcon={<RestartAltIcon />}
+                  onClick={resetFilters}
+                  sx={{ mt: 2, borderRadius: 1 }}
+                >
+                  Reset Filters
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
 
-//                     {/* Publisher Filter */}
-//                     <Grid item xs={12} md={2}>
-//                         <FormControl fullWidth>
-//                             <InputLabel>Person</InputLabel>
-//                             <Select
-//                                 value={filters.person}
-//                                 label="Person"
-//                                 onChange={(e) => setFilters({ ...filters, person: e.target.value })}
-//                             >
-//                                 <MenuItem value="all">All Publishers</MenuItem>
-//                                 {publishers.map((publisher, index) => (
-//                                     <MenuItem key={index} value={publisher}>
-//                                         {publisher}
-//                                     </MenuItem>
-//                                 ))}
-//                             </Select>
-//                         </FormControl>
-//                     </Grid>
+      {/* Results Section */}
+      <Typography variant="body2" color="text.secondary" sx={{ mt: 3 }}>
+        Found {filteredPerson.length} person
+      </Typography>
 
-//                     {/* Reset Button */}
-//                     <Grid item xs={12}>
-//                         <Box display="flex" justifyContent="center">
-//                             <Button
-//                                 variant="outlined"
-//                                 startIcon={<RestartAltIcon />}
-//                                 onClick={resetFilters}
-//                             >
-//                                 Reset Filters
-//                             </Button>
-//                         </Box>
-//                     </Grid>
-//                 </Grid>
-//             </CardContent>
-//         </Card>
+      <Grid container spacing={3} sx={{ mt: 3 }}>
+        {filteredPerson.map((person) => (
+          <Grid item xs={12} sm={6} md={4} key={person._id}>
+            <PersonCard person={person} />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+};
 
-//         {/* Results Section */}
-//         <Box sx={{ mb: 2 }}>
-//             <Typography variant="body1" color="text.secondary">
-//                 Found {filteredBooks.length} books
-//             </Typography>
-//         </Box>
-
-//         {/* Books Grid */}
-//         <Grid container spacing={3}>
-//             {filteredBooks.map((book) => (
-//                 <Grid item xs={12} sm={6} md={4} key={book._id}>
-//                     <Card book={book} />
-//                 </Grid>
-//             ))}
-//         </Grid>
-//     </Container>
-// );
-// };
-
-// export default SearchPerson;
+export default SearchPerson;
