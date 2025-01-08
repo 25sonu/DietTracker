@@ -15,6 +15,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const URL = process.env.REACT_APP_URL;
+
 const ShowPersonDetails = () => {
   const [person, setPerson] = useState({});
   const { id } = useParams();
@@ -22,14 +24,14 @@ const ShowPersonDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://diettracker-1zc0.onrender.com/api/diets/${id}`)
+      .get(`${URL}/api/diets/${id}`)
       .then((res) => setPerson(res.data))
       .catch((err) => toast.error("Failed to fetch person details!", { theme: "dark" }));
   }, [id]);
 
   const handleDelete = () => {
     axios
-      .delete(`https://diettracker-1zc0.onrender.com/api/diets/${id}`)
+      .delete(`${URL}/api/diets/${id}`)
       .then(() => {
         toast.success("Person deleted successfully!", { theme: "dark" });
         setTimeout(() => navigate("/"), 2000);

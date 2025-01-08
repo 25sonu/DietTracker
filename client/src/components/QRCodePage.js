@@ -14,7 +14,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download'; // Icon for the download button
 import axios from 'axios'; // Axios for API requests
 
-//const URL = process.env.REACT_APP_API_URL; // Access environment variable
+const URL = process.env.REACT_APP_URL; // Access environment variable
 
 const QRCodePage = () => {
   // State for storing diet data
@@ -23,12 +23,12 @@ const QRCodePage = () => {
   const [loading, setLoading] = useState(true);
 
   // Base URL for accessing diet details (to be embedded in QR code)
-  const baseUrl = `https://diettracker-1zc0.onrender.com/show-person/`;
+  const baseUrl = `${URL}/show-person/`;
 
   // Fetch diet data when the component loads
   useEffect(() => {
     axios
-      .get("https://diettracker-1zc0.onrender.com/api/diets") // API endpoint to fetch clinic data
+      .get("${URL}/api/diets") // API endpoint to fetch clinic data
       .then(res => {
         console.log(res.data); // Debug: inspect the API response
         // Safeguard: Ensure person is an array

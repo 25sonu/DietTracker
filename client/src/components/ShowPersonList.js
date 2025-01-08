@@ -8,13 +8,15 @@ import { Grid } from '@mui/material';
 
 import PersonCard from './PersonCard';
 
+const URL = process.env.REACT_APP_URL;
+
 function ShowPersonList() {
   const [person, setPerson] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     axios
-      .get(`https://diettracker-1zc0.onrender.com/api/diets`)
+      .get(`${URL}/api/diets`)
       
       .then((res) => {
         setPerson(res.data);

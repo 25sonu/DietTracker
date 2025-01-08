@@ -18,7 +18,8 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PersonCard from './PersonCard';
 import axios from 'axios';
 
-//const URL = process.env.REACT_APP_API_URL; // Access environment variable
+ // Access environment variable
+const URL = process.env.REACT_APP_URL; 
 
 const SearchPerson = () => {
   const [person, setPerson] = useState([]);

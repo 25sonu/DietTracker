@@ -10,12 +10,14 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
+const URL = process.env.REACT_APP_URL;
+
 const ExportPage = () => {
   const [person, setPerson] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://diettracker-1zc0.onrender.com/api/diets')
+    axios.get('${URL}/api/diets')
       .then(res => {
         setPerson(res.data); // Changed from setPersons to setPerson
         setLoading(false);

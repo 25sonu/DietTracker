@@ -25,6 +25,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import NotesIcon from '@mui/icons-material/Notes';
 import axios from 'axios';
 
+const URL = process.env.REACT_APP_URL;
+
 const HomePage = () => {
   const [stats, setStats] = useState({
     totalPersons: 0,
@@ -34,7 +36,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://diettracker-1zc0.onrender.com/api/diets')
+    axios.get('${URL}/api/diets')
       .then(res => {
         const person = res.data;
         const uniquePerson = new Set(person.map(person => person.author)).size;
