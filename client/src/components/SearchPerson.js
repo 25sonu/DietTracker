@@ -19,7 +19,7 @@ import PersonCard from './PersonCard';
 import axios from 'axios';
 
  // Access environment variable
-const URL = process.env.REACT_APP_URL; 
+// const URL = process.env.REACT_APP_URL; 
 
 const SearchPerson = () => {
   const [person, setPerson] = useState([]);
@@ -34,7 +34,7 @@ const SearchPerson = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/api/diets`)
+      .get(`https://diettracker-1zc0.onrender.com/api/diets`)
       .then((res) => {
         setPerson(res.data);
         setFilteredPerson(res.data);

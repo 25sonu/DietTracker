@@ -12,7 +12,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const URL = process.env.REACT_APP_URL;
+// const URL = process.env.REACT_APP_URL;
 
 const UpdatePersonInfo = () => {
   const [person, setPerson] = useState({
@@ -28,7 +28,7 @@ const UpdatePersonInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/api/diets/${id}`)
+      .get(`https://diettracker-1zc0.onrender.com/api/diets${id}`)
       .then((res) => setPerson(res.data))
       .catch(() => toast.error("Failed to fetch person details!", { theme: "dark" }));
   }, [id]);
@@ -40,7 +40,7 @@ const UpdatePersonInfo = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`${URL}/api/diets/${id}`, person)
+      .put(`https://diettracker-1zc0.onrender.com/api/diets/${id}`, person)
       .then(() => {
         toast.success("Person updated successfully!", { theme: "dark" });
         setTimeout(() => navigate(`/detail/${id}`), 2000);
@@ -125,7 +125,7 @@ const UpdatePersonInfo = () => {
         </form>
         <Button
           component={Link}
-          to="/"
+          to="/person-list"
           variant="outlined"
           color="secondary"
           fullWidth

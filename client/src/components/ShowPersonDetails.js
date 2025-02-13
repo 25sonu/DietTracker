@@ -24,14 +24,14 @@ const ShowPersonDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/api/diets/${id}`)
+      .get(`https://diettracker-1zc0.onrender.com/api/diets/${id}`)
       .then((res) => setPerson(res.data))
       .catch((err) => toast.error("Failed to fetch person details!", { theme: "dark" }));
   }, [id]);
 
   const handleDelete = () => {
     axios
-      .delete(`${URL}/api/diets/${id}`)
+      .delete(`https://diettracker-1zc0.onrender.com/api/diets/${id}`)
       .then(() => {
         toast.success("Person deleted successfully!", { theme: "dark" });
         setTimeout(() => navigate("/"), 2000);
@@ -105,7 +105,7 @@ const ShowPersonDetails = () => {
           <Button
             variant="text"
             component={Link}
-            to="/"
+            to="/person-list"
             sx={{ ml: "auto" }}
           >
             Back to List

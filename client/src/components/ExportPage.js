@@ -17,7 +17,7 @@ const ExportPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${URL}/api/diets`)
+    axios.get(`https://diettracker-1zc0.onrender.com/api/diets`)
       .then(res => {
         setPerson(res.data); // Changed from setPersons to setPerson
         setLoading(false);

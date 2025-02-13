@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const URL = process.env.REACT_APP_URL;
+// const URL = process.env.REACT_APP_URL;
 
 const CreatePerson = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const CreatePerson = () => {
     e.preventDefault();
 
     axios
-      .post(`${URL}/api/diets`, person)
+      .post(`https://diettracker-1zc0.onrender.com/api/diets`, person)
       .then(() => {
         setPerson({
           name: '',
@@ -152,7 +152,7 @@ const CreatePerson = () => {
               <Box display="flex" justifyContent="space-between">
                 <Button
                   component={Link}
-                  to="/"
+                  to="/person-list"
                   variant="outlined"
                   color="secondary"
                 >

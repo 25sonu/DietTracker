@@ -16,7 +16,7 @@ function ShowPersonList() {
 
   useEffect(() => {
     axios
-      .get(`${URL}/api/diets`)
+      .get(`https://diettracker-1zc0.onrender.com/api/diets`)
       
       .then((res) => {
         setPerson(res.data);

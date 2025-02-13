@@ -11,7 +11,6 @@ import {
   CardContent,
   Fade,
   CircularProgress,
-  //Divider
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
@@ -25,29 +24,37 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import NotesIcon from '@mui/icons-material/Notes';
 import axios from 'axios';
 
-const URL = process.env.REACT_APP_URL;
+// const URL = process.env.REACT_APP_URL;
 
 const HomePage = () => {
   const [stats, setStats] = useState({
     totalPersons: 0,
-    uniqueAuthors: 0,
-    recentPerson: null
+    uniquePersons: 0,
+    recentPerson: null,
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${URL}/api/diets`)
+    axios.get(`https://diettracker-1zc0.onrender.com/api/diets`)
       .then(res => {
-        const person = res.data;
-        const uniquePerson = new Set(person.map(person => person.author)).size;
-        const recentperson = person.sort((a, b) =>
-          new Date(b.published_date) - new Date(a.published_date)
-        )[0];
+        if (!Array.isArray(res.data)) {
+          console.error("Expected an array but got:", res.data);
+          setLoading(false);
+          return;
+        }
+
+        const persons = res.data; // Ensure it's an array
+        const uniquePersons = new Set(persons.map(person => person.author)).size;
+        const recentPerson = persons.length
+          ? persons.sort((a, b) =>
+              new Date(b.published_date) - new Date(a.published_date)
+            )[0]
+          : null;
 
         setStats({
-          totalPersons: person.length,
-          uniquePerson,
-          recentperson
+          totalPersons: persons.length,
+          uniquePersons,
+          recentPerson,
         });
         setLoading(false);
       })
@@ -217,28 +224,26 @@ const HomePage = () => {
             </Button>
           </Grid>
 
-          {/* Resume Button */}
-        <Grid item xs={12} sm={6} md={3}>
-              <Button
-                component="a"
-                href="https://docs.google.com/document/d/1WEwJ5rvyI8gxGWORNP_9uGzvybJHzdb0NUSvQd-b-O0/edit?tab=t.0"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="contained"
-                startIcon={<MenuBookIcon />}
-                size="large"
-                fullWidth
-                sx={{
-                  padding: '16px',
-                  borderRadius: '8px',
-                  boxShadow: 2,
-                  '&:hover': { boxShadow: 6 },
-                }}
-              >
-                Resume
-              </Button>
-            </Grid>
-
+          <Grid item xs={12} sm={6} md={3}>
+            <Button
+              component="a"
+              href="https://docs.google.com/document/d/1WEwJ5rvyI8gxGWORNP_9uGzvybJHzdb0NUSvQd-b-O0/edit?tab=t.0"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              startIcon={<MenuBookIcon />}
+              size="large"
+              fullWidth
+              sx={{
+                padding: '16px',
+                borderRadius: '8px',
+                boxShadow: 2,
+                '&:hover': { boxShadow: 6 },
+              }}
+            >
+              Resume
+            </Button>
+          </Grid>
 
           <Grid item xs={12} sm={6} md={4}>
             <Button
@@ -253,7 +258,6 @@ const HomePage = () => {
               Search Persons
             </Button>
           </Grid>
-
         </Grid>
       </Container>
     </Fade>
